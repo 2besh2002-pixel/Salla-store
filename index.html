@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>تطبيق جوال لمتجر سلة | iOS وأندرويد بـ React Native | Vision Tech</title>
+<meta name="description" content="نبني تطبيق جوال لمتجرك في سلة بـ React Native: نسخة iOS وأندرويد بكود واحد، ربط مع متجرك، ونساعدك في النشر على المتجرين.">
+<link rel="canonical" href="https://vitekh.com/products/salla-app/">
+<meta property="og:title" content="تطبيق جوال لمتجر سلة | Vision Tech">
+<meta property="og:description" content="iOS وأندرويد بكود واحد، ربط مع سلة، ودعم في النشر.">
+<meta property="og:image" content="https://vitekh.com/wp-content/uploads/2026/11/prod-salla.jpg">
+<meta property="og:url" content="https://vitekh.com/products/salla-app/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap">
+
+<!-- Schema: Service + FAQPage + BreadcrumbList -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"Service","name":"تطبيق جوال لمتجر سلة","serviceType":"تطوير تطبيقات React Native","provider":{"@type":"Organization","name":"Vision Tech","url":"https://vitekh.com/"},"areaServed":"SA","availableLanguage":["ar","en"],"description":"تطبيق iOS وأندرويد بكود واحد لمتجر سلة، مرتبط بمنتجات المتجر وطلباته."},
+{"@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"الرئيسية","item":"https://vitekh.com/"},
+{"@type":"ListItem","position":2,"name":"منتجاتنا","item":"https://vitekh.com/products/"},
+{"@type":"ListItem","position":3,"name":"تطبيق سلة"}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"كم يستغرق التنفيذ؟","acceptedAnswer":{"@type":"Answer","text":"تختلف المدة حسب حجم المشروع، ونحددها معك بعد مراجعة المتطلبات."}},
+{"@type":"Question","name":"من يملك حسابات Apple وGoogle والكود؟","acceptedAnswer":{"@type":"Answer","text":"نوضح ذلك ونتفق عليه معك قبل بدء المشروع."}},
+{"@type":"Question","name":"هل يدعم الدفع الإلكتروني؟","acceptedAnswer":{"@type":"Answer","text":"نعم، حسب بوابات الدفع المفعّلة في متجرك. نؤكد المتاح بعد مراجعة المتجر."}},
+{"@type":"Question","name":"هل التطبيق يدعم العربية والإنجليزية؟","acceptedAnswer":{"@type":"Answer","text":"نعم، يدعم اللغتين، ويتبدل اتجاه الواجهة تلقائياً مع اللغة."}},
+{"@type":"Question","name":"هل أقدر أضيف مزايا لاحقاً؟","acceptedAnswer":{"@type":"Answer","text":"نعم، يمكن التوسع بالمزايا حسب الحاجة."}}]}
+]}
+</script>
+
+<style>
+/* كل الكلاسات تبدأ بـ sa- حتى لا تتعارض مع ثيم موقعك */
+:root{
+  --sa-ink:#0e2a33;
+  --sa-ink-soft:#4a6670;
+  --sa-bg:#ffffff;
+  --sa-tint:#eef7f8;
+  --sa-line:#d5e5e8;
+  --sa-brand:#0b7f93;
+  --sa-brand-dark:#075565;
+  --sa-wa:#1a9e53;
+  --sa-radius:14px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --sa-ink:#e6f2f4;--sa-ink-soft:#9bb5bc;--sa-bg:#0b1a1f;
+    --sa-tint:#112830;--sa-line:#1f3b44;--sa-brand:#4cc3d6;--sa-brand-dark:#8fdbe8;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--sa-bg);color:var(--sa-ink);
+  font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;line-height:1.8;font-size:17px}
+.sa-wrap{max-width:1120px;margin-inline:auto;padding:0 20px}
+.sa-sec{padding:72px 0}
+.sa-sec.alt{background:var(--sa-tint)}
+h1,h2,h3{line-height:1.35;margin:0 0 .5em}
+h1{font-size:clamp(2rem,5vw,3.2rem)}
+h2{font-size:clamp(1.5rem,3.4vw,2.2rem)}
+h3{font-size:1.1rem}
+p{margin:0 0 1em;max-width:62ch}
+.sa-lead{color:var(--sa-ink-soft);font-size:1.1rem}
+a{color:var(--sa-brand)}
+
+/* أزرار */
+.sa-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.sa-btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:999px;
+  font-weight:700;text-decoration:none;border:2px solid var(--sa-brand);transition:background .2s}
+.sa-btn.main{background:var(--sa-brand);color:#fff}
+.sa-btn.main:hover{background:var(--sa-brand-dark);border-color:var(--sa-brand-dark)}
+.sa-btn.wa{background:var(--sa-wa);border-color:var(--sa-wa);color:#fff}
+.sa-btn.ghost{color:var(--sa-brand)}
+.sa-btn:focus-visible,summary:focus-visible{outline:3px solid var(--sa-brand);outline-offset:3px}
+
+/* Hero */
+.sa-hero{padding:56px 0 72px;background:linear-gradient(180deg,var(--sa-tint),var(--sa-bg))}
+.sa-hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.sa-chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px;padding:0;list-style:none}
+.sa-chips li{padding:4px 14px;border:1px solid var(--sa-line);border-radius:999px;
+  font-size:.9rem;background:var(--sa-bg);color:var(--sa-ink-soft)}
+
+/* مجسم الجوال: ضع لقطات تصاميمك داخل .sa-shot */
+.sa-phones{display:flex;justify-content:center;gap:16px}
+.sa-phone{width:170px;aspect-ratio:9/19;border:6px solid var(--sa-ink);border-radius:30px;
+  overflow:hidden;background:var(--sa-tint);position:relative;flex:none}
+.sa-phone:nth-child(2){transform:translateY(28px)}
+.sa-phone img{width:100%;height:100%;object-fit:cover;display:block}
+.sa-phone .sa-ph{position:absolute;inset:0;display:grid;place-items:center;text-align:center;
+  padding:12px;font-size:.8rem;color:var(--sa-ink-soft)}
+
+/* شبكات عامة */
+.sa-grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:28px}
+.sa-card{padding:22px;border:1px solid var(--sa-line);border-radius:var(--sa-radius);background:var(--sa-bg)}
+.sa-card p{margin:0;color:var(--sa-ink-soft);font-size:.97rem}
+
+/* معرض الشاشات */
+.sa-gallery{display:flex;gap:16px;overflow-x:auto;padding:8px 0 16px;scroll-snap-type:x mandatory}
+.sa-gallery figure{margin:0;flex:none;width:200px;scroll-snap-align:start}
+.sa-gallery .sa-phone{width:200px}
+.sa-gallery figcaption{text-align:center;font-size:.9rem;margin-top:10px;color:var(--sa-ink-soft)}
+
+/* جدول المقارنة */
+.sa-table-scroll{overflow-x:auto;margin-top:24px}
+table{width:100%;min-width:560px;border-collapse:collapse;background:var(--sa-bg)}
+th,td{padding:14px 16px;text-align:right;border-bottom:1px solid var(--sa-line);vertical-align:top}
+thead th{background:var(--sa-brand);color:#fff}
+tbody th{font-weight:500;color:var(--sa-ink-soft)}
+.sa-yes{color:var(--sa-brand);font-weight:700}
+
+/* خطوات العمل (تسلسل حقيقي) */
+.sa-steps{counter-reset:s;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  padding:0;list-style:none;margin:28px 0 0}
+.sa-steps li{counter-increment:s;padding:20px;border-top:4px solid var(--sa-brand);background:var(--sa-bg);
+  border-radius:0 0 var(--sa-radius) var(--sa-radius)}
+.sa-steps li::before{content:counter(s);display:block;font-size:1.8rem;font-weight:700;color:var(--sa-brand)}
+.sa-steps b{display:block}
+.sa-steps span{font-size:.92rem;color:var(--sa-ink-soft)}
+
+/* قوائم */
+.sa-list{padding:0;margin:16px 0 0;list-style:none}
+.sa-list li{padding:8px 28px 8px 0;position:relative}
+.sa-list li::before{content:"";position:absolute;right:0;top:17px;width:14px;height:8px;
+  border-right:3px solid var(--sa-brand);border-bottom:3px solid var(--sa-brand);transform:rotate(-45deg) scaleX(-1)}
+.sa-two{display:grid;gap:40px;grid-template-columns:1fr 1fr}
+
+/* الأسعار */
+.sa-price{font-size:1.9rem;font-weight:700;color:var(--sa-brand)}
+.sa-price small{font-size:.9rem;color:var(--sa-ink-soft);font-weight:400}
+
+/* أسئلة شائعة */
+.sa-faq details{border-bottom:1px solid var(--sa-line);padding:4px 0}
+.sa-faq summary{cursor:pointer;font-weight:700;padding:14px 0;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.sa-faq summary::-webkit-details-marker{display:none}
+.sa-faq summary::after{content:"+";font-size:1.4rem;color:var(--sa-brand)}
+.sa-faq details[open] summary::after{content:"−"}
+.sa-faq details p{color:var(--sa-ink-soft)}
+
+/* CTA */
+.sa-cta{background:var(--sa-brand-dark);color:#fff;text-align:center;padding:64px 0}
+.sa-cta p{margin-inline:auto;opacity:.9}
+.sa-cta .sa-btns{justify-content:center}
+.sa-cta .sa-btn.main{background:#fff;color:var(--sa-brand-dark);border-color:#fff}
+
+@media (max-width:820px){
+  .sa-hero-grid,.sa-two{grid-template-columns:1fr}
+  .sa-phones{order:-1}
+  .sa-phone{width:140px}
+  .sa-sec{padding:52px 0}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- ============ Hero ============ -->
+<section class="sa-hero">
+  <div class="sa-wrap sa-hero-grid">
+    <div>
+      <ul class="sa-chips"><li>iOS</li><li>أندرويد</li><li>React Native</li><li>مرتبط بسلة</li></ul>
+      <h1>تطبيق جوال لمتجرك في سلة، يشتغل على iPhone وأندرويد</h1>
+      <p class="sa-lead">نبنيه بـ React Native بكود واحد، ونربطه بمتجرك، ونساعدك في نشره على App Store وGoogle Play. المنتجات والطلبات تبقى تُدار من لوحة سلة.</p>
+      <div class="sa-btns">
+        <a class="sa-btn main" href="https://vitekh.com/contact/">اطلب عرضاً توضيحياً</a>
+        <a class="sa-btn wa" href="https://wa.me/966552020773?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%AA%D8%B7%D8%A8%D9%8A%D9%82%20%D8%AC%D9%88%D8%A7%D9%84%20%D9%84%D9%85%D8%AA%D8%AC%D8%B1%D9%8A%20%D9%81%D9%8A%20%D8%B3%D9%84%D8%A9." target="_blank" rel="noopener">اسأل عن التطبيق في واتساب</a>
+      </div>
+    </div>
+
+    <!-- استبدل كل .sa-ph بـ: <img src="رابط-لقطتك.jpg" alt="الصفحة الرئيسية في تطبيق سلة" width="360" height="760" loading="eager"> -->
+    <div class="sa-phones">
+      <div class="sa-phone"><div class="sa-ph">لقطة: الصفحة الرئيسية</div></div>
+      <div class="sa-phone"><div class="sa-ph">لقطة: صفحة المنتج</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ المزايا ============ -->
+<section class="sa-sec">
+  <div class="sa-wrap">
+    <h2>كل اللي يحتاجه عميلك في الجوال</h2>
+    <div class="sa-grid">
+      <div class="sa-card"><h3>مزامنة المنتجات والطلبات</h3><p>التطبيق يعرض بيانات متجرك من سلة، وتبقى الإدارة من لوحة سلة.</p></div>
+      <div class="sa-card"><h3>حساب عميل وعناوين محفوظة</h3><p>حساب للعميل يحفظ بياناته وعناوينه لتسهيل الشراء.</p></div>
+      <div class="sa-card"><h3>إشعارات العروض وحالة الطلب</h3><p>إشعارات للعميل بحالة الطلب والعروض.</p></div>
+      <div class="sa-card"><h3>تجربة شراء قصيرة</h3><p>من اختيار المنتج إلى الدفع في خطوات قليلة، وبواجهة تدعم العربية والإنجليزية.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ معرض الشاشات ============ -->
+<section class="sa-sec alt">
+  <div class="sa-wrap">
+    <h2>شاشات التطبيق</h2>
+    <p class="sa-lead">لقطات من تصاميمنا. الألوان والأقسام تتغير حسب هوية متجرك.</p>
+    <div class="sa-gallery">
+      <figure><div class="sa-phone"><div class="sa-ph">الرئيسية</div></div><figcaption>الرئيسية</figcaption></figure>
+      <figure><div class="sa-phone"><div class="sa-ph">المنتج</div></div><figcaption>صفحة المنتج</figcaption></figure>
+      <figure><div class="sa-phone"><div class="sa-ph">السلة</div></div><figcaption>السلة والدفع</figcaption></figure>
+      <figure><div class="sa-phone"><div class="sa-ph">التتبع</div></div><figcaption>تتبع الطلب</figcaption></figure>
+      <figure><div class="sa-phone"><div class="sa-ph">الحساب</div></div><figcaption>حساب العميل</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ التقنية والربط ============ -->
+<section class="sa-sec">
+  <div class="sa-wrap sa-two">
+    <div>
+      <h2>التقنية: React Native</h2>
+      <p>كود واحد لنسختي iOS وأندرويد، فالتطوير والتحديث أسهل من بناء تطبيقين منفصلين.</p>
+      <ul class="sa-list">
+        <li>تجربة سلسة على الجوال</li>
+        <li>يدعم العربية والإنجليزية</li>
+        <li>إشعارات للعميل</li>
+      </ul>
+    </div>
+    <div>
+      <h2>الربط مع سلة</h2>
+      <p>نربط التطبيق بمتجرك في سلة، فلا تحتاج تدير بياناتك في مكانين.</p>
+      <ul class="sa-list">
+        <li>المنتجات والأقسام</li>
+        <li>الطلبات وحالاتها</li>
+        <li>حسابات العملاء</li>
+        <li>الدفع عبر بوابات متجرك المفعّلة (حسب المتاح)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ المقارنة ============ -->
+<section class="sa-sec alt">
+  <div class="sa-wrap">
+    <h2>ليش تطبيق خاص بدل التطبيق الجاهز؟</h2>
+    <div class="sa-table-scroll">
+      <table>
+        <thead><tr><th></th><th>تطبيق Vision Tech</th><th>حل جاهز</th></tr></thead>
+        <tbody>
+          <tr><th>الهوية</th><td class="sa-yes">على هوية متجرك</td><td>قوالب جاهزة</td></tr>
+          <tr><th>الشاشات</th><td class="sa-yes">مخصصة لمتجرك</td><td>موحدة</td></tr>
+          <tr><th>المزايا</th><td class="sa-yes">حسب احتياجك</td><td>حسب ما يتوفر</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ خطوات العمل ============ -->
+<section class="sa-sec">
+  <div class="sa-wrap">
+    <h2>كيف نشتغل</h2>
+    <ol class="sa-steps">
+      <li><b>تحليل</b><span>نفهم متجرك واحتياجك.</span></li>
+      <li><b>تصميم</b><span>نصمم الشاشات وتعتمدها معنا.</span></li>
+      <li><b>تطوير</b><span>نبرمج ونربط التطبيق بمتجرك.</span></li>
+      <li><b>اختبار</b><span>نجرب التطبيق قبل التسليم.</span></li>
+      <li><b>نشر</b><span>نساعدك في النشر على المتجرين.</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ النشر والملكية + السعر ============ -->
+<section class="sa-sec alt">
+  <div class="sa-wrap sa-two">
+    <div>
+      <h2>النشر والملكية</h2>
+      <ul class="sa-list">
+        <li>نساعدك في تجهيز التطبيق ونشره على App Store وGoogle Play</li>
+        <li>تفاصيل الحسابات والملكية نتفق عليها معك قبل البدء</li>
+        <li>نراعي متطلبات الخصوصية والمتاجر</li>
+      </ul>
+    </div>
+    <div>
+      <h2>السعر والمدة</h2>
+      <p>السعر والمدة يعتمدان على حجم المشروع والمزايا المطلوبة. اطلب عرضاً ونحدد لك التقدير بعد فهم احتياجك.</p>
+      <h3>بعد التسليم</h3>
+      <ul class="sa-list">
+        <li>دعم وصيانة حسب الاتفاق</li>
+        <li>تحديثات عند الحاجة</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ أسئلة شائعة ============ -->
+<section class="sa-sec">
+  <div class="sa-wrap">
+    <h2>أسئلة قبل ما تبدأ</h2>
+    <div class="sa-faq">
+      <details><summary>هل يعمل مع متجري الحالي؟</summary><p>نعم، بعد مراجعة إضافات المتجر وطريقة الدفع.</p></details>
+      <details><summary>هل يأخذ هوية المتجر؟</summary><p>نعم، الألوان والأقسام تُضبط حسب الهوية.</p></details>
+      <details><summary>هل يشمل تتبع الطلب؟</summary><p>نعم، من داخل حساب العميل.</p></details>
+      <details><summary>كم يستغرق التنفيذ؟</summary><p>تختلف المدة حسب حجم المشروع، ونحددها معك بعد مراجعة المتطلبات.</p></details>
+      <details><summary>كيف تكون الملكية والحسابات؟</summary><p>نوضح ذلك ونتفق عليه معك قبل بدء المشروع.</p></details>
+      <details><summary>هل التطبيق يدعم العربية والإنجليزية؟</summary><p>نعم، يدعم اللغتين، ويتبدل اتجاه الواجهة تلقائياً مع اللغة.</p></details>
+      <details><summary>هل أقدر أضيف مزايا لاحقاً؟</summary><p>نعم، يمكن التوسع بالمزايا حسب الحاجة.</p></details>
+      <details><summary>هل يشتغل مع التطبيقات الإضافية في سلة؟</summary><p>يعتمد على الإضافة. نراجعها معك ونخبرك بالمتاح.</p></details>
+      <details><summary>هل في نسخة تجريبية أجربها؟</summary><p>نقدم لك عرضاً توضيحياً. اطلبه من الزر أعلاه.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="sa-cta">
+  <div class="sa-wrap">
+    <h2>جاهز تحط متجرك في جيب عميلك؟</h2>
+    <p>أرسل لنا رابط متجرك ونتواصل معك.</p>
+    <div class="sa-btns">
+      <a class="sa-btn main" href="https://vitekh.com/contact/">اطلب عرضاً توضيحياً</a>
+      <a class="sa-btn wa" href="https://wa.me/966552020773" target="_blank" rel="noopener">واتساب</a>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
